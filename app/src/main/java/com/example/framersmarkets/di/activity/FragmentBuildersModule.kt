@@ -1,5 +1,6 @@
 package com.example.framersmarkets.di.activity
 
+import com.example.framersmarkets.features.marketdetails.MarketDetailsFragment
 import com.example.framersmarkets.features.marketlist.MarketListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -13,4 +14,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun bindMarketListFragment(): MarketListFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun bindMarketDetailsFragment(): MarketDetailsFragment
 }

@@ -3,20 +3,21 @@ package com.example.framersmarkets.features.main
 import android.os.Bundle
 import com.example.framersmarkets.R
 import com.example.framersmarkets.features.marketlist.MarketListFragment
+import com.example.framersmarkets.navigation.Navigation
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var navigation: Navigation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        fragmets_container
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmets_container, MarketListFragment())
-//            .addToBackStack()
-            .commit()
+        if(savedInstanceState == null)
+            navigation.new(MarketListFragment())
+        else navigation.restore()
     }
 }
