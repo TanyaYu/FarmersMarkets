@@ -1,7 +1,9 @@
 package com.example.framersmarkets.features.marketlist
 
-import com.example.framersmarkets.base.viewmodel.RxViewModel
+import com.example.framersmarkets.base.viewmodel.ViewModel
 import com.example.framersmarkets.data.market.MarketDataSource
+import com.example.framersmarkets.utils.Schedulers.computation
+import com.example.framersmarkets.utils.Schedulers.main
 import javax.inject.Inject
 
 /**
@@ -10,6 +12,9 @@ import javax.inject.Inject
  */
 class MarketListViewModel @Inject constructor(
     private val marketDataSource: MarketDataSource
-): RxViewModel() {
-
+): ViewModel() {
+    val markets = marketDataSource.getMarkets()
+        .map { it.map { MarketItem(it.name) } }
+        .subscribeOn(computation)
+        .observeOn(main)
 }

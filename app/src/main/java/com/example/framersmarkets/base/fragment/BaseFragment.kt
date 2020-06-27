@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.framersmarkets.base.viewmodel.ViewModel
 import com.example.framersmarkets.navigation.Navigation
 import dagger.android.support.DaggerFragment
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**
@@ -27,11 +28,18 @@ abstract class BaseFragment : DaggerFragment() {
 
     inline fun <reified VM : ViewModel> viewModels() = viewModels<VM>(factoryProducer = { viewModelFactory })
 
+    val disposable = CompositeDisposable()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(layout, container, false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

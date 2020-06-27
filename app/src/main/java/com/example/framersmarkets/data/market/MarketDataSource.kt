@@ -18,4 +18,8 @@ class MarketDataSource @Inject constructor() {
             )
         )
     }
+
+    fun getById(id: Long): Observable<Market> {
+        return Observable.just(Market(id, "New Boston"))
+    }
 }
