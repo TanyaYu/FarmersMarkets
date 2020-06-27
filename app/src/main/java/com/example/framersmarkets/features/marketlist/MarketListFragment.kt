@@ -1,38 +1,22 @@
 package com.example.framersmarkets.features.marketlist
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.example.framersmarkets.R
+import com.example.framersmarkets.base.fragment.BaseFragment
 import com.example.framersmarkets.features.marketdetails.MarketDetailsFragment
-import com.example.framersmarkets.navigation.Navigation
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_market_list.*
-import javax.inject.Inject
 
 /**
  * Author: Tanya Iuferova
  * Date: 6/26/20
  */
-class MarketListFragment : DaggerFragment() {
+class MarketListFragment : BaseFragment() {
 
-    @Inject
-    lateinit var navigation: Navigation
+    override val layout = R.layout.fragment_market_list
+    private val viewModel by viewModels<MarketListViewModel>()
 
-    val model by viewModels<MarketListViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_market_list, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onReady() {
         details.setOnClickListener {
-            navigation.to(MarketDetailsFragment())
+            navigation.to(MarketDetailsFragment.new(1))
         }
     }
 }

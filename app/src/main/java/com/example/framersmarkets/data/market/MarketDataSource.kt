@@ -1,12 +1,13 @@
 package com.example.framersmarkets.data.market
 
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
 /**
  * Author: Tanya Iuferova
  * Date: 6/26/20
  */
-class MarketDataSource {
+class MarketDataSource @Inject constructor() {
 
     fun getMarkets(): Observable<List<Market>> {
         return Observable.just(

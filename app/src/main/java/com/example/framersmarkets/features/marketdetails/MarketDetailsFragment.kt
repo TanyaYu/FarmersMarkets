@@ -1,28 +1,33 @@
 package com.example.framersmarkets.features.marketdetails
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.util.Log
 import com.example.framersmarkets.R
-import dagger.android.support.DaggerFragment
+import com.example.framersmarkets.base.fragment.BaseFragment
+import com.example.framersmarkets.base.fragment.arg
+import com.example.framersmarkets.base.fragment.withArguments
 
 /**
  * Author: Tanya Iuferova
  * Date: 6/26/20
  */
-class MarketDetailsFragment: DaggerFragment() {
+class MarketDetailsFragment : BaseFragment() {
 
-    val model by viewModels<MarketDetailsViewModel>()
+    override val layout = R.layout.fragment_market_details
+    private val viewModel by viewModels<MarketDetailsViewModel>()
+    private val marketId: Long by arg(MARKET_ID)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_market_details, container, false)
+    override fun onReady() {
+        viewModel.setUp(marketId)
+        viewModel.id.subscribe { Log.d("MarketDetailsFragment", "ID = $it") }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    companion object {
+        fun new(marketId: Long): MarketDetailsFragment {
+            return MarketDetailsFragment().withArguments {
+                putLong(MARKET_ID, marketId)
+            }
+        }
+
+        private const val MARKET_ID = "MARKET_ID"
     }
 }
