@@ -6,5 +6,8 @@ package com.example.framersmarkets.features.marketlist
  */
 data class MarketItem(
     val id: Long,
-    val name: String
+    val name: String,
+    val location: String,
+    val date: String,
+    val photo: String
 )

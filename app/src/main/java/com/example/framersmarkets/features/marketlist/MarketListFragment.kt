@@ -18,18 +18,16 @@ class MarketListFragment : BaseFragment() {
 
     override val layout = R.layout.fragment_market_list
     private val viewModel by viewModels<MarketListViewModel>()
-    private val marketsAdapter = MarketListAdapter(object : MarketListAdapter.ActionsHandler {
+    private val adapter = MarketListAdapter(object : MarketListAdapter.ActionsHandler {
         override fun onClick(id: Long) {
             navigation.to(MarketDetailsFragment.new(id))
         }
     })
 
     override fun onReady() {
-        with(markets_rv) {
-            adapter = marketsAdapter
-            layoutManager = LinearLayoutManager(this@MarketListFragment.requireContext())
-            setHasFixedSize(true)
-        }
+        markets_rv.adapter = adapter
+        markets_rv.layoutManager = LinearLayoutManager(requireContext())
+        markets_rv.setHasFixedSize(true)
         disposable += viewModel.markets.subscribeBy(
             onNext = ::bindMarketsList,
             onError = ::onMarketListError
@@ -38,7 +36,7 @@ class MarketListFragment : BaseFragment() {
 
     private fun bindMarketsList(markets: List<MarketItem>) {
         Log.d(javaClass.simpleName, markets.toString())
-        marketsAdapter.submitList(markets)
+        adapter.submitList(markets)
     }
 
     private fun onMarketListError(throwable: Throwable) {

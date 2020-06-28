@@ -11,8 +11,20 @@ class MarketDataSource @Inject constructor() {
 
     private val data = listOf(
         Market(1, "New Boston"),
-        Market(2, "New Concord"),
-        Market(3, "Manchester")
+        Market(2, "Concord"),
+        Market(3, "Manchester"),
+        Market(4, "Nashua"),
+        Market(5, "Londonderry"),
+        Market(6, "Derry"),
+        Market(7, "Salem"),
+        Market(8, "Portsmouth"),
+        Market(9, "Boston"),
+        Market(10, "Conway"),
+        Market(11, "North Conway"),
+        Market(12, "Laconia"),
+        Market(13, "Washington"),
+        Market(14, "Derryfield"),
+        Market(15, "Tyumen")
     )
 
     fun getMarkets(): Observable<List<Market>> {

@@ -3,10 +3,12 @@ package com.example.framersmarkets.features.marketlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.framersmarkets.R
 
 /**
@@ -34,14 +36,25 @@ class MarketListAdapter(private val actionsHandler: ActionsHandler) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.name.text = item.name
-        holder.itemView.setOnClickListener {
-            actionsHandler.onClick(item.id)
+        with(holder) {
+            name.text = item.name
+            date.text = item.date
+            location.text = item.location
+            Glide.with(itemView) // todo placeholder
+                .load(item.photo)
+                .centerCrop()
+                .into(photo)
+            itemView.setOnClickListener {
+                actionsHandler.onClick(item.id)
+            }
         }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.name_tv)
+        val date: TextView = view.findViewById(R.id.date_tv)
+        val location: TextView = view.findViewById(R.id.location_tv)
+        val photo: ImageView = view.findViewById(R.id.photo_iv)
     }
 
     interface ActionsHandler {
