@@ -1,7 +1,9 @@
 package com.example.framersmarkets.features.marketdetails
 
 import com.example.framersmarkets.base.viewmodel.ViewModel
+import com.example.framersmarkets.data.market.Market
 import com.example.framersmarkets.data.market.MarketDataSource
+import com.example.framersmarkets.data.market.toDetails
 import com.example.framersmarkets.utils.Schedulers.computation
 import com.example.framersmarkets.utils.Schedulers.main
 import io.reactivex.rxjava3.core.Observable
@@ -19,7 +21,7 @@ class MarketDetailsViewModel @Inject constructor(
     private val idSubject: BehaviorSubject<Long> = BehaviorSubject.create()
     val id: Observable<Long> = idSubject.hide()
     val market = id.flatMap(marketDataSource::getById)
-        .map { MarketDetails(it.name) }
+        .map(Market::toDetails)
         .subscribeOn(computation)
         .observeOn(main)
 

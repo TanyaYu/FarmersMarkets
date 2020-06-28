@@ -1,6 +1,8 @@
 package com.example.framersmarkets.features.marketlist
 
 import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.framersmarkets.R
 import com.example.framersmarkets.base.fragment.BaseFragment
 import com.example.framersmarkets.features.marketdetails.MarketDetailsFragment
@@ -16,10 +18,17 @@ class MarketListFragment : BaseFragment() {
 
     override val layout = R.layout.fragment_market_list
     private val viewModel by viewModels<MarketListViewModel>()
+    private val marketsAdapter = MarketListAdapter(object : MarketListAdapter.ActionsHandler {
+        override fun onClick(id: Long) {
+            navigation.to(MarketDetailsFragment.new(id))
+        }
+    })
 
     override fun onReady() {
-        details.setOnClickListener {
-            navigation.to(MarketDetailsFragment.new(1))
+        with(markets_rv) {
+            adapter = marketsAdapter
+            layoutManager = LinearLayoutManager(this@MarketListFragment.requireContext())
+            setHasFixedSize(true)
         }
         disposable += viewModel.markets.subscribeBy(
             onNext = ::bindMarketsList,
@@ -29,9 +38,11 @@ class MarketListFragment : BaseFragment() {
 
     private fun bindMarketsList(markets: List<MarketItem>) {
         Log.d(javaClass.simpleName, markets.toString())
+        marketsAdapter.submitList(markets)
     }
 
     private fun onMarketListError(throwable: Throwable) {
-        Log.d(javaClass.simpleName, throwable.message ?: "")
+        Log.d(javaClass.simpleName, throwable.message.orEmpty())
+        Toast.makeText(requireContext(), R.string.error, Toast.LENGTH_SHORT).show()
     }
 }

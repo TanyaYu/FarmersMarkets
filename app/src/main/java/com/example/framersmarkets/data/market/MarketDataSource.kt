@@ -9,17 +9,17 @@ import javax.inject.Inject
  */
 class MarketDataSource @Inject constructor() {
 
+    private val data = listOf(
+        Market(1, "New Boston"),
+        Market(2, "New Concord"),
+        Market(3, "Manchester")
+    )
+
     fun getMarkets(): Observable<List<Market>> {
-        return Observable.just(
-            listOf(
-                Market(1, "New Boston"),
-                Market(2, "New Concord"),
-                Market(3, "Manchester")
-            )
-        )
+        return Observable.just(data)
     }
 
     fun getById(id: Long): Observable<Market> {
-        return Observable.just(Market(id, "New Boston"))
+        return Observable.just(data.find { it.id == id })
     }
 }

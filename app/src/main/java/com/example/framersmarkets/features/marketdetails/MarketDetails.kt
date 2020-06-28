@@ -5,5 +5,6 @@ package com.example.framersmarkets.features.marketdetails
  * Date: 6/26/20
  */
 data class MarketDetails(
+    val id: String,
     val name: String
 )

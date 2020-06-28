@@ -1,4 +1,4 @@
-package com.example.framersmarkets.base.fragment
+package com.example.framersmarkets.utils
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
