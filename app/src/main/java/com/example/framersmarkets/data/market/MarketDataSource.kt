@@ -1,5 +1,6 @@
 package com.example.framersmarkets.data.market
 
+import com.example.framersmarkets.utils.Schedulers
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
@@ -29,9 +30,11 @@ class MarketDataSource @Inject constructor() {
 
     fun getMarkets(): Observable<List<Market>> {
         return Observable.just(data)
+            .subscribeOn(Schedulers.computation)
     }
 
     fun getById(id: Long): Observable<Market> {
-        return Observable.just(data.find { it.id == id })
+        return Observable.just(data.find { it.id == id } ?: data.first())
+            .subscribeOn(Schedulers.computation)
     }
 }

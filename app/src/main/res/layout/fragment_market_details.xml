@@ -1,21 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/id_tv"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="1" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/name_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Market" />
+        <com.example.framersmarkets.ui.PhotoSliderView
+            android:id="@+id/photo_slider"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,16:9"
 
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/accent"
+            tools:count="10" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_h"
+            android:layout_marginLeft="@dimen/spacing_h"
+            android:layout_marginTop="@dimen/spacing_m"
+            android:singleLine="true"
+            android:textAppearance="@style/Headline5"
+            app:layout_constraintEnd_toStartOf="@id/location_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photo_slider"
+            tools:text="Market Name" />
+
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_h"
+            android:layout_marginRight="@dimen/spacing_h"
+            android:singleLine="true"
+            android:textAppearance="@style/Caption"
+            app:layout_constraintBottom_toBottomOf="@id/name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/name_tv"
+            tools:text="Concord, NH" />
+
+        <ImageView
+            android:id="@+id/date_icon"
+            android:layout_width="@dimen/icon_size_xl"
+            android:layout_height="@dimen/icon_size_xl"
+            android:contentDescription="@string/icon_calendar"
+            android:src="@drawable/ic_calendar"
+            android:tint="@color/icon"
+            app:layout_constraintBottom_toBottomOf="@id/date_tv"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toTopOf="@id/date_tv" />
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_m"
+            android:layout_marginLeft="@dimen/spacing_m"
+            android:layout_marginTop="@dimen/spacing_l"
+            android:layout_marginEnd="@dimen/spacing_h"
+            android:layout_marginRight="@dimen/spacing_h"
+            android:singleLine="true"
+            android:textAppearance="@style/Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/date_icon"
+            app:layout_constraintTop_toBottomOf="@id/name_tv"
+            tools:text="Sat, Sun" />
+
+        <TextView
+            android:id="@+id/description_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_h"
+            android:maxLines="7"
+            android:textAppearance="@style/Body2"
+            app:layout_constraintEnd_toEndOf="@id/date_tv"
+            app:layout_constraintStart_toStartOf="@id/date_icon"
+            app:layout_constraintTop_toBottomOf="@id/date_tv"
+            tools:text="a food market at which local farmers sell fruit and vegetables and often meat, cheese, and bakery products directly to consumers." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/farms_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_tv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

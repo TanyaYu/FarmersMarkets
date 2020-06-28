@@ -20,10 +20,11 @@ class MarketDetailsViewModel @Inject constructor(
 
     private val idSubject: BehaviorSubject<Long> = BehaviorSubject.create()
     val id: Observable<Long> = idSubject.hide()
+
     val market = id.flatMap(marketDataSource::getById)
         .map(Market::toDetails)
-        .subscribeOn(computation)
-        .observeOn(main)
+
+    val farms = market.map { it.farms }
 
     fun setUp(id: Long) {
         idSubject.onNext(id)

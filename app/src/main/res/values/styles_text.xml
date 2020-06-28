@@ -36,6 +36,9 @@
     <style name="Button" parent="TextAppearance.MaterialComponents.Button"/>
 
     <style name="Caption" parent="TextAppearance.MaterialComponents.Caption"/>
+    <style name="Caption.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
 
     <style name="Overline" parent="TextAppearance.MaterialComponents.Overline"/>
 

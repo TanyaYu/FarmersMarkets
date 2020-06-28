@@ -1,4 +1,4 @@
-package com.example.framersmarkets.features.marketlist
+package com.example.framersmarkets.features.marketdetails
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +10,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.framersmarkets.R
+import com.example.framersmarkets.features.marketdetails.MarketDetails.Farm
 
 /**
  * Author: Tanya Iuferova
- * Date: 6/27/20
+ * Date: 6/28/20
  */
-class MarketListAdapter(private val actionsHandler: ActionsHandler) :
-    ListAdapter<MarketItem, MarketListAdapter.ViewHolder>(
-        object : DiffUtil.ItemCallback<MarketItem>() {
-            override fun areItemsTheSame(old: MarketItem, new: MarketItem): Boolean {
+class MarketDetailsFarmAdapter(private val actionsHandler: ActionsHandler) :
+    ListAdapter<Farm, MarketDetailsFarmAdapter.ViewHolder>(
+        object : DiffUtil.ItemCallback<Farm>() {
+            override fun areItemsTheSame(old: Farm, new: Farm): Boolean {
                 return old.id == new.id
             }
 
-            override fun areContentsTheSame(old: MarketItem, new: MarketItem): Boolean {
+            override fun areContentsTheSame(old: Farm, new: Farm): Boolean {
                 return old == new
             }
         }
@@ -30,7 +31,7 @@ class MarketListAdapter(private val actionsHandler: ActionsHandler) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_market, parent, false)
+            .inflate(R.layout.item_market_details_farm, parent, false)
         return ViewHolder(view)
     }
 
@@ -38,13 +39,11 @@ class MarketListAdapter(private val actionsHandler: ActionsHandler) :
         val item = getItem(position)
         with(holder) {
             name.text = item.name
-            date.text = item.date
-            location.text = item.location
             Glide.with(itemView)
-                .load(item.photo)
-                .centerCrop()
-                .error(R.drawable.placeholder_market)
-                .into(photo)
+                .load(item.logo)
+                .circleCrop()
+                .placeholder(R.drawable.placeholder_farm)
+                .into(logo)
             itemView.setOnClickListener {
                 actionsHandler.onClick(item.id)
             }
@@ -53,9 +52,7 @@ class MarketListAdapter(private val actionsHandler: ActionsHandler) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.name_tv)
-        val date: TextView = view.findViewById(R.id.date_tv)
-        val location: TextView = view.findViewById(R.id.location_tv)
-        val photo: ImageView = view.findViewById(R.id.photo_iv)
+        val logo: ImageView = view.findViewById(R.id.logo_iv)
     }
 
     interface ActionsHandler {

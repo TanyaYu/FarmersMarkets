@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">FramersMarkets</string>
     <string name="error">Error</string>
+    <string name="coming_soon">Coming Soon!</string>
+    <string name="photo_slider_counter_template">%d/%d</string>
 </resources>

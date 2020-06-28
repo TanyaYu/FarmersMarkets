@@ -1,5 +1,6 @@
 package com.example.framersmarkets.base.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,10 +44,14 @@ abstract class BaseFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        onReady()
     }
 
-    open fun onReady() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onAttached()
+    }
+
+    open fun onAttached() {
 
     }
 }
